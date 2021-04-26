@@ -1,0 +1,37 @@
+{
+  "name": "be-personal-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --watch src -e js --exec node ./src/app.js",
+    "start": "node ./src/app.js",
+    "prod": "pm2 start app.js --name be-personal-site",
+    "reProd": "pm2 restart be-personal-site",
+    "stop": "pm2 stop be-personal-site"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "cheerio": "^1.0.0-rc.6",
+    "dayjs": "^1.9.1",
+    "iconv-lite": "^0.6.2",
+    "jsonwebtoken": "^8.5.1",
+    "koa": "^2.13.0",
+    "koa-body": "^4.2.0",
+    "koa-jwt": "^4.0.0",
+    "koa-logger": "^3.2.1",
+    "koa-router": "^9.4.0",
+    "mysql2": "^2.2.5",
+    "node-schedule": "^1.3.2",
+    "puppeteer": "^9.0.0",
+    "sequelize": "^6.3.5"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "nodemon": "^2.0.4"
+  }
+}
