@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon --watch src -e js --exec node ./src/app.js",
     "start": "node ./src/app.js",
-    "prod": "pm2 start app.js --name be-personal-site",
+    "prod": "pm2 start ./src/app.js --name be-personal-site",
     "reProd": "pm2 restart be-personal-site",
     "stop": "pm2 stop be-personal-site"
   },
