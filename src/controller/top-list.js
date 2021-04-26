@@ -1,12 +1,15 @@
 
 const execError = require("../utils/exec-error")
 const hupuPost = require("../model/hupu_post")
+const ngaPost = require("../model/nga_post")
+
 const getHupuTop = require("../schedule/hupu").getHupuTop
 
 const topList = {
   async getList(ctx) {
     try {
       const hupu12List = await hupuPost.getList('12')
+      const ngaDuleLinkList = await ngaPost.getList('nga-duel-link')
       ctx.body = {
         data: {
           hupu12: {
@@ -14,6 +17,10 @@ const topList = {
             name: '虎扑历史区',
             list: hupu12List,
           },
+          ngaDuleLinkList: {
+            name: 'NGA决斗链接',
+            list: ngaDuleLinkList,
+          }
         }
       }
     } catch (e) {
