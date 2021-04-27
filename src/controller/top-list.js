@@ -25,24 +25,28 @@ const topList = {
           thirdApi.requestThirdApi('guancha')
         ]
       )
+      const now = new Date()
       // 修改weiboHotSearchList的属性名
       const weiboHotSearchList = originWeiboHotSearchList.map(v => {
         return {
           post_name: v.title,
-          post_href: v.url
+          post_href: v.url,
+          create_time: now
         }
       })
       const zhihuTopList = originZhihuTopList.map(v => {
         return {
           post_name: v.title,
-          post_href: v.url
+          post_href: v.url,
+          create_time: now
         }
       })
       const guanchaLatestList = originGuanchaLatestList.map(v => {
         return {
           post_name: v.title,
           post_href: v.url_pc,
-          post_href_mobile: v.url
+          post_href_mobile: v.url,
+          create_time: now
         }
       })
       ctx.body = {
@@ -111,16 +115,19 @@ const topList = {
     try {
       const type = ctx.request.query.type
       const res = await thirdApi.requestThirdApi(type)
+      const now = new Date()
       const list = res.map(v => {
         return type === 'guancha' ?
           {
             post_name: v.title,
             post_href: v.url_pc,
-            post_href_mobile: v.url
+            post_href_mobile: v.url,
+            create_time: now
           } :
           {
             post_name: v.title,
-            post_href: v.url
+            post_href: v.url,
+            create_time: now
           }
       })
       ctx.body = {
