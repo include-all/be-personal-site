@@ -32,9 +32,9 @@ const getNgaPost = async () => {
       let $postDatum = $(node).find('.c1 a')
       let href = $post.attr('href')
       res.push({
-        postName: $post.text().trim(),
-        postHref: href.startsWith('https') ? href : `https://bbs.nga.cn${href}`,
-        replyCount: $postDatum.text(),
+        post_name: $post.text().trim(),
+        post_href: href.startsWith('https') ? href : `https://bbs.nga.cn${href}`,
+        reply_count: $postDatum.text(),
         type: 'nga-duel-link'
       })
     })

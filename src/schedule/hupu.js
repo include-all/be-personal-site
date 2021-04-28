@@ -1,6 +1,7 @@
+const axios = require('../utils/axios')
+
 const schedule = require('node-schedule')
 
-const axios = require('../utils/axios')
 const cheerio = require('cheerio');
 const hupuPostModel = require('../model/hupu_post')
 
@@ -32,9 +33,9 @@ const getHupuHotPost = async ({
       let $post = $(node).find(itemSelector)
       let replyDes = $(node).find(replySelector).text()
       res.push({
-        postName: $post.text().trim(),
-        postHref: $post.attr('href'),
-        replyCount: getReplyCount(replyDes),
+        post_name: $post.text().trim(),
+        post_href: $post.attr('href'),
+        reply_count: getReplyCount(replyDes),
         type,
       })
     })
