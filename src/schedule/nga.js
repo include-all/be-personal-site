@@ -9,10 +9,10 @@ const puppeteer = require('puppeteer')
  * 利用puppeteer模拟浏览器操作，从而可以避免nga的限制
  */
 const getNgaPost = async () => {
+  //打开一个浏览器
+  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
   try {
     let url = `https://bbs.nga.cn/thread.php?fid=765&rand=${parseInt(1000 * Math.random())}`
-    //打开一个浏览器
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
     // 打开一个页面
     const page = await browser.newPage();
     await page.goto(url, {
@@ -40,6 +40,8 @@ const getNgaPost = async () => {
     await ngaPostModel.updatePost(res.filter(v => v.replyCount))
   } catch (err) {
     console.log(err)
+  } finally {
+    browser.close()
   }
 }
 
