@@ -16,7 +16,7 @@ router.get("/open/hello", Open.hello);
 
 // 获取列表
 router.get("/topList/getList", topList.getList)
-router.get("/topList/reGetHupu12List", topList.reGetHupu12List)
+router.get("/topList/reGetHupuPostList", topList.reGetHupuPostList)
 router.get("/topList/reGetNgaPostList", topList.reGetNgaPostList)
 router.get("/topList/reGetThirdApiList", topList.reGetThirdApiList)
 

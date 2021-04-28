@@ -20,7 +20,6 @@ class NgaPost {
     try {
       await this.model.destroy({
         where: {},
-        truncate: true
       })
       for (let i = 0; i < list.length; i++) {
         await this.model.create({

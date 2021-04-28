@@ -16,11 +16,12 @@ class HupuPost {
     }
   }
   // 更新帖子
-  async updatePost(list) {
+  async updatePost(list, type) {
     try {
       await this.model.destroy({
-        where: {},
-        truncate: true
+        where: {
+          type,
+        },
       })
       for (let i = 0; i < list.length; i++) {
         await this.model.create({
@@ -35,10 +36,10 @@ class HupuPost {
     }
   }
   // 获取列表
-  async getList(type) {
+  async getList(params = {}) {
     const list = await this.model.findAll({
       where: {
-        type,
+        ...params
       }
     })
     return list
