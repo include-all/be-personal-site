@@ -1,6 +1,6 @@
-# koa-app-template
+# be-personal-site
 
-koa app template
+be-personal-site
 
 ## Introduction
 
@@ -19,10 +19,9 @@ module.exports = {
 };
 ```
 
-2. 提供了简单的 jwt 登录认证，日志等功能，和一个简单的定时任务 demo
-
+2. 提供了简单的 jwt 登录认证，日志等功能
 3. 布上服务器需要先在服务器安装 pm2
 
 ## Description
 
-此项目是一个模板项目，由 cli 生成
+个人站点的后端项目，爬取虎扑，nga帖子数据，以及利用公开api，获取微博热搜，知乎热榜，观察者网的最新文章等信息
