@@ -2,33 +2,11 @@
 const execError = require("../utils/exec-error")
 const hupuPost = require("../model/hupu_post")
 const ngaPost = require("../model/nga_post")
-const thirdApi = require("../utils/third-api")
+const thirdApiPost = require("../model/third_api_post")
+
 const getHupuHotPost = require("../schedule/hupu").getHupuHotPost
 const getNgaPost = require("../schedule/nga").getNgaPost
-
-// 处理数据格式的一些方法
-const handleKanyunData = (list) => {
-  const now = new Date()
-  return list.map(v => {
-    return {
-      post_name: v.title,
-      post_href: v.url,
-      create_time: now,
-    }
-  })
-}
-
-const handleKanyunSpData = (list) => {
-  const now = new Date()
-  return list.map(v => {
-    return {
-      post_name: v.title,
-      post_href: v.url_pc,
-      post_href_mobile: v.url,
-      create_time: now,
-    }
-  })
-}
+const getThirdApiPost = require("../schedule/third-api").getThirdApiPost
 
 const topList = {
   async getList(ctx) {
@@ -42,12 +20,12 @@ const topList = {
         guanchaLatestList,
       ] = await Promise.all(
         [
-          hupuPost.getList({ type: '12' }),
-          hupuPost.getList({ type: 'all-gambia' }),
+          hupuPost.getList('12'),
+          hupuPost.getList('all-gambia'),
           ngaPost.getList('nga-duel-link'),
-          thirdApi.requestThirdApi('weibo'),
-          thirdApi.requestThirdApi('zhihu'),
-          thirdApi.requestThirdApi('guancha')
+          thirdApiPost.getList('weibo'),
+          thirdApiPost.getList('zhihu'),
+          thirdApiPost.getList('guancha'),
         ]
       )
       // 组织数据
@@ -69,15 +47,15 @@ const topList = {
           },
           weiboHotSearch: {
             name: '微博热搜',
-            list: handleKanyunData(weiboHotSearchList),
+            list: weiboHotSearchList,
           },
           zhihuTopList: {
             name: '知乎热榜',
-            list: handleKanyunData(zhihuTopList),
+            list: zhihuTopList,
           },
           guanchaLatestArticle: {
             name: '观察者网最新文章',
-            list: handleKanyunSpData(guanchaLatestList),
+            list: guanchaLatestList,
           }
         }
       }
@@ -104,7 +82,7 @@ const topList = {
           replySelector: '.post-datum'
         })
       }
-      const hupuPostList = await hupuPost.getList({ type })
+      const hupuPostList = await hupuPost.getList(type)
       ctx.body = {
         data: {
           list: hupuPostList
@@ -132,25 +110,11 @@ const topList = {
   async reGetThirdApiList(ctx) {
     try {
       const type = ctx.request.query.type
-      const res = await thirdApi.requestThirdApi(type)
-      const now = new Date()
-      const list = res.map(v => {
-        return type === 'guancha' ?
-          {
-            post_name: v.title,
-            post_href: v.url_pc,
-            post_href_mobile: v.url,
-            create_time: now
-          } :
-          {
-            post_name: v.title,
-            post_href: v.url,
-            create_time: now
-          }
-      })
+      await getThirdApiPost(type)
+      const list = await thirdApiPost.getList(type)
       ctx.body = {
         data: {
-          list: list
+          list,
         }
       }
     } catch {

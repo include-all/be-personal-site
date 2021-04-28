@@ -1,15 +1,15 @@
-const hupuPostSchema = require('./schema/hupu_post_schema')
+const thirdApiPostSchema = require('./schema/third_api_post_schema')
 const db = require('../../config/mysql.js')
 
 
-class HupuPost {
+class ThirdApiPost {
   model;
   constructor() {
     try {
       this.model = db.sequelize.define(
-        hupuPostSchema.modelName,
-        hupuPostSchema.schema,
-        hupuPostSchema.options,
+        thirdApiPostSchema.modelName,
+        thirdApiPostSchema.schema,
+        thirdApiPostSchema.options,
       )
     } catch (err) {
       console.log(err)
@@ -20,13 +20,14 @@ class HupuPost {
     try {
       await this.model.destroy({
         where: {
-          type,
+          type
         },
       })
       for (let i = 0; i < list.length; i++) {
         await this.model.create({
           post_name: list[i].post_name,
           post_href: list[i].post_href,
+          post_href_mobile: list[i].post_href_mobile,
           reply_count: list[i].reply_count,
           type: list[i].type,
         })
@@ -46,6 +47,6 @@ class HupuPost {
   }
 }
 
-let hupuPost = new HupuPost()
+let thirdApiPost = new ThirdApiPost()
 
-module.exports = hupuPost
+module.exports = thirdApiPost

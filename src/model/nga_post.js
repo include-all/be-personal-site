@@ -23,9 +23,9 @@ class NgaPost {
       })
       for (let i = 0; i < list.length; i++) {
         await this.model.create({
-          post_name: list[i].postName,
-          post_href: list[i].postHref,
-          reply_count: list[i].replyCount,
+          post_name: list[i].post_name,
+          post_href: list[i].post_href,
+          reply_count: list[i].reply_count,
           type: list[i].type,
         })
       }

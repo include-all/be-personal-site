@@ -47,3 +47,4 @@ app.listen(port, () => {
 // 定时任务
 scheduleJob.hupuJob()
 scheduleJob.ngaJob()
+scheduleJob.thirdApiJob()
