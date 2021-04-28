@@ -30,14 +30,15 @@ const getNgaPost = async () => {
     rowWrap.each((index, node) => {
       let $post = $(node).find('.c2>a')
       let $postDatum = $(node).find('.c1 a')
+      let href = $post.attr('href')
       res.push({
         postName: $post.text().trim(),
-        postHref: $post.attr('href'),
+        postHref: href.startsWith('https') ? href : `https://bbs.nga.cn${href}`,
         replyCount: $postDatum.text(),
         type: 'nga-duel-link'
       })
     })
-    await ngaPostModel.updatePost(res.filter(v => v.replyCount))
+    await ngaPostModel.updatePost(res)
   } catch (err) {
     console.log(err)
   } finally {
