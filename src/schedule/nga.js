@@ -18,11 +18,9 @@ const getNgaPost = async () => {
     await page.goto(url, {
       waitUntil: 'networkidle0'
     });
-    await new Promise(resolve => {
-      setTimeout(() => {
-        resolve()
-      }, 5000)
-    })
+    // 等待出现这个选择器，表示nga已经跳转成功
+    await page.waitForSelector('.topicrow')
+    // 这时候取页面内容即可
     const html = await page.content();
     let $ = cheerio.load(html)
     let rowWrap = $('.topicrow')
