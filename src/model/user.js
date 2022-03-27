@@ -3,7 +3,7 @@ const db = require('../../config/mysql.js')
 
 
 class User {
-  model;
+  // model;
   constructor() {
     try {
       this.model = db.sequelize.define(

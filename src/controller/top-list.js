@@ -21,7 +21,7 @@ const topList = {
       ] = await Promise.all(
         [
           hupuPost.getList('12'),
-          hupuPost.getList('all-gambia'),
+          hupuPost.getList('bxj'),
           ngaPost.getList('nga-duel-link'),
           thirdApiPost.getList('weibo'),
           thirdApiPost.getList('zhihu'),
@@ -31,7 +31,7 @@ const topList = {
       // 组织数据
       ctx.body = {
         data: {
-          hupuAllGambia: {
+          bxj: {
             origin: 'https://bbs.hupu.com',
             name: '虎扑步行街',
             list: hupuAllGambiaList,
@@ -67,17 +67,17 @@ const topList = {
   async reGetHupuPostList(ctx) {
     try {
       const type = ctx.request.query.type
-      if (type === 'all-gambia') {
+      if (type === 'bxj') {
         await getHupuHotPost({
-          type: 'all-gambia',
-          wrapSelector: '.list-item-wrap>.list-item',
-          itemSelector: '.t-info>a',
-          replySelector: '.t-info>.t-replies'
+          type: 'bxj',
+          wrapSelector: 'li>.bbs-sl-web-post-layout',
+          itemSelector: '.post-title>a',
+          replySelector: '.post-datum'
         })
       } else if (type === '12') {
         await getHupuHotPost({
           type: '12',
-          wrapSelector: 'li.bbs-sl-web-post-layout',
+          wrapSelector: 'li>.bbs-sl-web-post-layout',
           itemSelector: '.p-title',
           replySelector: '.post-datum'
         })

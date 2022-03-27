@@ -39,6 +39,7 @@ const getHupuHotPost = async ({
         type,
       })
     })
+    console.log(res)
     await hupuPostModel.updatePost(res, type)
   } catch (err) {
     console.log(err)
@@ -52,15 +53,15 @@ const job = () => {
   schedule.scheduleJob(rule, () => {
     // 获取虎扑步行街热帖
     getHupuHotPost({
-      type: 'all-gambia',
-      wrapSelector: '.list-item-wrap>.list-item',
-      itemSelector: '.t-info>a',
-      replySelector: '.t-info>.t-replies'
+      type: 'bxj',
+      wrapSelector: 'li>.bbs-sl-web-post-layout',
+      itemSelector: '.post-title>a',
+      replySelector: '.post-datum'
     })
     // 获取虎扑历史区帖子
     getHupuHotPost({
       type: '12',
-      wrapSelector: 'li.bbs-sl-web-post-layout',
+      wrapSelector: 'li>.bbs-sl-web-post-layout',
       itemSelector: '.p-title',
       replySelector: '.post-datum'
     })
